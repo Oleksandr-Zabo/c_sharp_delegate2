@@ -2,94 +2,25 @@
 {//dev
     internal class Program
     {
-        delegate int[] ArrWork(int[] arr);
+        delegate int CubeDelegate(int x);
+
         static void Main()
         {
+            //3
             var random = new Random();
-            int[] arr = new int[10];
-            for (int i = 0; i < arr.Length; i++)
-            {
-                arr[i] = random.Next(1, 10);
-            }
+            int x = random.Next(2, 10);
+            CubeDelegate cube = x => x * x * x;
+            Console.WriteLine($"Cube of {x} = {cube(x)}");
 
-            Console.WriteLine("Standart arr:");
-            for (int i = 0; i < arr.Length; i++)
-            {
-                Console.Write($"{arr[i]} ");
-            }
-            Console.WriteLine();
+            //4
+            Console.WriteLine($"Write date: ");
+            DateTime date = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine($"Date: {date}");
 
-            ArrWork dell_even = delegate (int[] arr)
-            {
-                int[] arr_odd = new int[arr.Length];
-                int j = 0;
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    if (arr[i] % 2 != 0)
-                    {
-                        arr_odd[j] = arr[i];
-                        j++;
-                    }
-                }
-                int[] res_arr = new int[j];
-                for (int i = 0; i < j; i++)
-                {
-                    res_arr[i] = arr_odd[i];
-                }
-                return res_arr;
-            };
-
-            ArrWork sort_arr = delegate (int[] arr)
-            {
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    for (int j = i + 1; j < arr.Length; j++)
-                    {
-                        if (arr[i] > arr[j])
-                        {
-                            int temp = arr[i];
-                            arr[i] = arr[j];
-                            arr[j] = temp;
-                        }
-                    }
-                }
-                return arr;
-            };
-
-            ArrWork arr_to_2 = delegate (int[] arr)
-            {
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    arr[i] *= arr[i];
-                }
-                return arr;
-            };
-
-            int[] arr_1 = dell_even(arr);
-            Console.WriteLine("Dell even in arr:");
-            for (int i = 0; i < arr_1.Length; i++)
-            {
-                Console.Write($"{arr_1[i]} ");
-            }
-            Console.WriteLine();
-
-
-            arr_1 = sort_arr(arr_1);
-            Console.WriteLine("Sort arr:");
-            for (int i = 0; i < arr_1.Length; i++)
-            {
-                Console.Write($"{arr_1[i]} ");
-            }
-            Console.WriteLine();
-
-            arr_1 = arr_to_2(arr_1);
-            Console.WriteLine("Sort arr:");
-            for (int i = 0; i < arr_1.Length; i++)
-            {
-                Console.Write($"{arr_1[i]} ");
-            }
-            Console.WriteLine();
-
+            // Check if the day is a programmer's day == 13.09.2023 or 12.09.2024
+            Func<DateTime, bool> isDayOfYear256 = date => date.DayOfYear == 256;
+            
+            Console.WriteLine($"Is the day a programmer's day? {isDayOfYear256(date)}");
         }
     }
 }
