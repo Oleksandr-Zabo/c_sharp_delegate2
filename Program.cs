@@ -1,5 +1,5 @@
 ﻿namespace c_sharp_delegate2
-{
+{//dev
     internal class Program
     {
         delegate void CalcNumber(ref double x);
