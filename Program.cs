@@ -1,26 +1,49 @@
 ﻿namespace c_sharp_delegate2
-{//dev
+{//hw ex-5
     internal class Program
     {
-        delegate int CubeDelegate(int x);
-
         static void Main()
         {
-            //3
             var random = new Random();
-            int x = random.Next(2, 10);
-            CubeDelegate cube = x => x * x * x;
-            Console.WriteLine($"Cube of {x} = {cube(x)}");
+            int[] ints = new int[10];
+            for (int i = 0; i < 10; i++)
+            {
+                ints[i] = random.Next(-10, 10);
+            }
+            Console.WriteLine("Array of random numbers: ");
+            foreach (var i in ints)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
 
-            //4
-            Console.WriteLine($"Write date: ");
-            DateTime date = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine($"Date: {date}");
+            Func<int[], int> UnicNegative = nums => {
+                int count = 0;
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] < 0)
+                    {
+                        bool ToAddCount = true;
+                        for (int j = 0; j < nums.Length; j++)
+                        {
+                            if (nums[i] == nums[j] && i != j)
+                            {
+                                ToAddCount = false;
+                                break;
+                            }
+                        }
 
-            // Check if the day is a programmer's day == 13.09.2023 or 12.09.2024
-            Func<DateTime, bool> isDayOfYear256 = date => date.DayOfYear == 256;
-            
-            Console.WriteLine($"Is the day a programmer's day? {isDayOfYear256(date)}");
+                        if (ToAddCount)
+                        {
+                            count++;
+                        }
+                    }
+                }
+                return count;
+            };
+
+            Console.WriteLine("Number of unique, negative numbers : " + UnicNegative(ints));
         }
     }
 }
+
