@@ -1,26 +1,25 @@
 ﻿namespace c_sharp_delegate2
-{//dev
+{//hw ex-4
     internal class Program
     {
-        delegate int CubeDelegate(int x);
-
         static void Main()
         {
-            //3
             var random = new Random();
-            int x = random.Next(2, 10);
-            CubeDelegate cube = x => x * x * x;
-            Console.WriteLine($"Cube of {x} = {cube(x)}");
+            int[] ints = new int[10];
+            for (int i = 0; i < 10; i++)
+            {
+                ints[i] = random.Next(-100, 100);
+            }
+            Console.WriteLine("Array of random numbers: ");
+            foreach (var i in ints)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
 
-            //4
-            Console.WriteLine($"Write date: ");
-            DateTime date = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine($"Date: {date}");
+            Func<int[], int> countPositive = nums => nums.Count(n => n > 0);
 
-            // Check if the day is a programmer's day == 13.09.2023 or 12.09.2024
-            Func<DateTime, bool> isDayOfYear256 = date => date.DayOfYear == 256;
-            
-            Console.WriteLine($"Is the day a programmer's day? {isDayOfYear256(date)}");
+            Console.WriteLine("Number of multiples of 7: " + countPositive(ints));
         }
     }
 }
