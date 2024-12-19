@@ -1,26 +1,40 @@
 ﻿namespace c_sharp_delegate2
-{//dev
+{//hw ex-6
     internal class Program
     {
-        delegate int CubeDelegate(int x);
-
         static void Main()
         {
-            //3
-            var random = new Random();
-            int x = random.Next(2, 10);
-            CubeDelegate cube = x => x * x * x;
-            Console.WriteLine($"Cube of {x} = {cube(x)}");
+            string text = "The quick brown fox jumps over the lazy dog.";
+            string wordToFind = "fox";
 
-            //4
-            Console.WriteLine($"Write date: ");
-            DateTime date = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine($"Date: {date}");
+            Func<string, string, bool> containsWord = (txt, word) =>
+            {
+                txt = txt.ToLower();
+                word = word.ToLower();
 
-            // Check if the day is a programmer's day == 13.09.2023 or 12.09.2024
-            Func<DateTime, bool> isDayOfYear256 = date => date.DayOfYear == 256;
+                string[] words = txt.Split(new char[] { ' ', '.', ',', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+
+               
+                foreach (string w in words)
+                {
+                    if (w == word)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            };
+
             
-            Console.WriteLine($"Is the day a programmer's day? {isDayOfYear256(date)}");
+            bool result = containsWord(text, wordToFind);
+            Console.WriteLine($"Does the text contain the word '{wordToFind}'? {result}");
+
+           
+            string anotherWordToFind = "cat";
+            bool anotherResult = containsWord(text, anotherWordToFind);
+            Console.WriteLine($"Does the text contain the word '{anotherWordToFind}'? {anotherResult}");
         }
     }
 }
+
+
