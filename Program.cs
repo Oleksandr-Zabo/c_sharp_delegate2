@@ -1,26 +1,45 @@
 ﻿namespace c_sharp_delegate2
-{//dev
+{//hw ex-1
     internal class Program
     {
-        delegate int CubeDelegate(int x);
-
-        static void Main()
+        public delegate string GetRgbValue(string color);
+        static void Main(string[] args)
         {
-            //3
-            var random = new Random();
-            int x = random.Next(2, 10);
-            CubeDelegate cube = x => x * x * x;
-            Console.WriteLine($"Cube of {x} = {cube(x)}");
+            GetRgbValue GetRgb;
+            GetRgb = delegate (string color)
+            {
+                color = color.ToLower();
+                switch (color)
+                {
+                    case "red":
+                        return "(255, 0, 0)";
+                    case "green":
+                        return "(0, 255, 0)";
+                    case "blue":
+                        return "(0, 0, 255)";
+                    case "yellow":
+                        return "(255, 255, 0)";
+                    case "violet":
+                        return "(238, 130, 238)";
+                    default:
+                        throw new Exception("Unknown color");
+                }
+            };
 
-            //4
-            Console.WriteLine($"Write date: ");
-            DateTime date = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine($"Date: {date}");
-
-            // Check if the day is a programmer's day == 13.09.2023 or 12.09.2024
-            Func<DateTime, bool> isDayOfYear256 = date => date.DayOfYear == 256;
-            
-            Console.WriteLine($"Is the day a programmer's day? {isDayOfYear256(date)}");
+            // Test the method with different rainbow colors
+            try
+            {
+                Console.WriteLine("RGB for Red: " + GetRgb("Red"));
+                Console.WriteLine("RGB for Green: " + GetRgb("Green"));
+                Console.WriteLine("RGB for Yellow: " + GetRgb("yellow"));
+                Console.WriteLine("RGB for Violet: " + GetRgb("VIOLET"));
+                Console.WriteLine("RGB for Unknown: " + GetRgb("Unknown")); // This will throw an exception
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
+
     }
 }
